@@ -76,8 +76,20 @@ function App() {
       axisPointer: {
         type: 'shadow'
       },
+      textStyle: {
+        fontSize: '5px'
+      },
       formatter: function (params) {
+        console.log(params);
+        let title = params.map(t => t.axisValue).slice(0, 1);
 
+        return `<b>${title} 2023</b>
+                <b>В программе  </b>
+                <p>Проекты ИТ   <p>
+                <p>Проекты ЦП   <p>
+                <b>Вне программ  </b>
+                <p>Проекты ИТ   <p>
+                <p>Проекты ЦП   <p>`
       }
     },
     legend: {
