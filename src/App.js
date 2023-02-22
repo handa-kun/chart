@@ -58,14 +58,6 @@ function App() {
     };
   })
 
-
-  const emphasisStyle = {
-    itemStyle: {
-      shadowBlur: 10,
-      shadowColor: 'rgba(0,0,0,0.3)'
-    },
-  };
-
   const option = {
     title: {
       text: 'Проекты в программах и вне программ',
@@ -79,17 +71,26 @@ function App() {
       textStyle: {
         fontSize: '5px'
       },
-      formatter: function (params) {
-        console.log(params);
-        let title = params.map(t => t.axisValue).slice(0, 1);
 
-        return `<b>${title} 2023</b>
-                <b>В программе  </b>
-                <p>Проекты ИТ   <p>
-                <p>Проекты ЦП   <p>
-                <b>Вне программ  </b>
-                <p>Проекты ИТ   <p>
-                <p>Проекты ЦП   <p>`
+      formatter: function (params) {
+        let title = params.map(t => t.axisValue).slice(0, 1);
+        let it = params[0].value;
+        let cp = params[1].value;
+        let amount = it + cp;
+        let it2 = params[2].value;
+        let cp2 = params[3].value;
+        let amount2 = it2 + cp2;
+        let percent = (amount / amount2) * 100;
+        let fixed = (number) => number.toFixed(0);
+        let percentFixed = fixed(percent);
+        let percent2 = 100 - percentFixed;
+        return `<b>${title} 2023</b><br>
+                <b>В программе   ${percentFixed}% | ${amount} шт</b><br>
+                Проекты ИТ  <b>${it} шт</b><br>
+                Проекты ЦП  <b>${cp} шт</b><br>   
+                <b>Вне программ ${percent2}% | ${amount2} шт</b><br>
+                Проекты ИТ  <b>${it2} шт</b><br>
+                Проекты ЦП  <b>${cp2} шт</b>`
       }
     },
     legend: {
@@ -116,7 +117,6 @@ function App() {
         name: 'В программе ЦП',
         type: 'bar',
         stack: 'one',
-        emphasis: emphasisStyle,
         data: data1,
         color: '#56B9F2',
       },
@@ -124,7 +124,6 @@ function App() {
         name: 'В программе ИТ',
         type: 'bar',
         stack: 'one',
-        emphasis: emphasisStyle,
         data: data2,
         color: '#0078D2',
       },
@@ -132,7 +131,6 @@ function App() {
         name: 'Вне программ ЦП',
         type: 'bar',
         stack: 'two',
-        emphasis: emphasisStyle,
         data: data3,
         color: '#22C38E',
       },
@@ -140,7 +138,6 @@ function App() {
         name: 'Вне программ ИТ',
         type: 'bar',
         stack: 'two',
-        emphasis: emphasisStyle,
         data: data4,
         color: '#00724C',
       }
